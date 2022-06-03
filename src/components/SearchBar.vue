@@ -1,24 +1,140 @@
 <template>
-    <div class="container">
-  <form action="" class="search">
-    <input class="search__input" type="search" placeholder="Ara" id="searchInput">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <form action="" class="search">
+          <input
+            class="search__input"
+            type="search"
+            ref="search"
+            placeholder="Ara"
+            id="searchInput"
+          />
 
-    <div class="search__icon-container">
-      <label for="searchInput" class="search__label" aria-label="Search">
-        <svg viewBox="0 0 1000 1000" title="Ara"><path fill="currentColor" d="M408 745a337 337 0 1 0 0-674 337 337 0 0 0 0 674zm239-19a396 396 0 0 1-239 80 398 398 0 1 1 319-159l247 248a56 56 0 0 1 0 79 56 56 0 0 1-79 0L647 726z"/></svg>
-      </label>
+          <div class="search__icon-container">
+            <label for="searchInput" class="search__label" aria-label="Search">
+              <svg viewBox="0 0 1000 1000" title="Ara">
+                <path
+                  fill="currentColor"
+                  d="M408 745a337 337 0 1 0 0-674 337 337 0 0 0 0 674zm239-19a396 396 0 0 1-239 80 398 398 0 1 1 319-159l247 248a56 56 0 0 1 0 79 56 56 0 0 1-79 0L647 726z"
+                />
+              </svg>
+            </label>
 
-      <button class="search__submit" aria-label="Search">
-        <svg viewBox="0 0 1000 1000" title="Ara"><path fill="currentColor" d="M408 745a337 337 0 1 0 0-674 337 337 0 0 0 0 674zm239-19a396 396 0 0 1-239 80 398 398 0 1 1 319-159l247 248a56 56 0 0 1 0 79 56 56 0 0 1-79 0L647 726z"/></svg>
-      </button>
+            <button
+              class="search__submit"
+              aria-label="Search"
+              @click.prevent="searchData"
+            >
+              <svg viewBox="0 0 1000 1000" title="Ara">
+                <path
+                  fill="currentColor"
+                  d="M408 745a337 337 0 1 0 0-674 337 337 0 0 0 0 674zm239-19a396 396 0 0 1-239 80 398 398 0 1 1 319-159l247 248a56 56 0 0 1 0 79 56 56 0 0 1-79 0L647 726z"
+                />
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-  </form>
-</div>
+    <div class="row">
+      <div class="col-xs-12">
+        <!-- <div id="example-table" ref="example-table"></div> -->
+        <slot/>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
+import SearchService from "@/services/index";
+// import { TabulatorFull as Tabulator } from "tabulator-tables";
+// import "tabulator-tables/dist/css/tabulator_simple.min.css";
+
 export default {
-    
-}
+  data() {
+    return {
+      // tabulator: null, //variable to hold your table
+      // tableData: this.$store.getters.getSearchedData, //data for table to display
+    };
+  },
+  // watch: {
+  //   //update table if data changes
+  //   tableData: {
+  //     handler: function (newData) {
+  //       this.tabulator.replaceData(newData);
+  //     },
+  //     deep: true,
+  //   },
+  // },
+  methods: {
+    searchData() {
+      SearchService.query(this.$refs.search.value, "10", "10").then((data) => {
+        
+        this.$store.dispatch("search", this.$refs.search.value);
+        this.$store.dispatch("data", data.hits.hits);
+        // this.tableData= this.$store.getters.getSearchedData
+      });
+    },
+    responseData() {
+      console.log(this.$store.getters.getCurrentSearch);
+    },
+  },
+  // mounted() {
+  //   this.tabulator = new Tabulator(this.$refs["example-table"], {
+  //     data: this.tableData,
+  //     reactiveData: true,
+  //     layout: "fitColumns",
+  //     columns: [
+  //       {
+  //         title: "Id",
+  //         field: "_id",
+  //         //   dataSorting: function (sorters) {
+  //         //     console.log(sorters);
+  //         //   },
+  //         //   dataSorted: function (sorters, rows) {
+  //         //     //sorters - array of the sorters currently applied
+  //         //     //rows - array of row components in their new order
+  //         //     console.log(sorters, rows);
+  //         //   },
+  //         //   cellClick: (e, cell) =>
+  //         //     this.handleCellSingleClick(e, cell, (e, cell) => {
+  //         //       console.log("Value: ", cell._cell.value);
+  //         //     }),
+  //         //   tableBuilt: function () {
+  //         //     console.log("test");
+  //         //   },
+  //         //   columnResized: function (column) {
+  //         //     console.log(column);
+  //         //     //column - column component of the resized column
+  //         //   },
+  //       },
+  //       {
+  //         title: "Index",
+  //         field: "_index",
+  //       },
+  //       {
+  //         title: "Score",
+  //         field: "_score",
+  //       },
+  //       {
+  //         title: "Source",
+  //         field: "_source",
+  //       },
+  //     ],
+  //   });
+  //   this.tabulator.on("rowClick", function (e, row) {
+  //     alert("Row " + row.getIndex() + " Clicked!!!!");
+  //   });
+  //   this.tabulator.on("dataSorted", function (sorters, rows) {
+  //     //sorters - array of the sorters currently applied
+  //     //rows - array of sortersrow components in their new order
+  //     console.log(sorters, rows);
+  //   });
+  //   this.tabulator.on("rowContext", function (e, row) {
+  //     alert("Row " + row.getIndex() + " Context Clicked!!!!");
+  //   });
+  // },
+};
 </script>
 <style >
 :root {
@@ -34,12 +150,13 @@ export default {
   font-weight: 100;
 }
 
-.container {
+.container-fluid {
   align-items: center;
   background: var(--color-background);
   display: flex;
   height: 100vh;
   justify-content: center;
+  flex-direction: column;
 }
 
 .search {
@@ -52,7 +169,8 @@ export default {
   border-radius: 999px;
   border: 2px solid transparent;
   display: flex;
-  transition: border-color var(--transition-time-icon) linear, padding var(--transition-time-input) var(--easing);
+  transition: border-color var(--transition-time-icon) linear,
+    padding var(--transition-time-input) var(--easing);
 }
 .search:not(:focus-within) {
   --transition-time-input: 0.2s 0s;
@@ -71,7 +189,9 @@ export default {
   opacity: 0;
   outline: none;
   padding: 0;
-  transition: width var(--transition-time-input) var(--easing), padding var(--transition-time-input) var(--easing), opacity var(--transition-time-input) linear;
+  transition: width var(--transition-time-input) var(--easing),
+    padding var(--transition-time-input) var(--easing),
+    opacity var(--transition-time-input) linear;
   width: 0;
 }
 .search__input::-moz-placeholder {
@@ -91,7 +211,8 @@ export default {
   position: relative;
   width: calc(var(--font-size) + 2rem);
 }
-.search__label, .search__submit {
+.search__label,
+.search__submit {
   color: var(--color);
   cursor: pointer;
   display: block;
@@ -100,7 +221,12 @@ export default {
   position: absolute;
   width: 100%;
 }
-.search__label:hover, .search__label:focus, .search__label:active, .search__submit:hover, .search__submit:focus, .search__submit:active {
+.search__label:hover,
+.search__label:focus,
+.search__label:active,
+.search__submit:hover,
+.search__submit:focus,
+.search__submit:active {
   color: var(--color-highlight);
 }
 .search__label {
@@ -134,8 +260,12 @@ export default {
 }
 .search:focus-within .search__submit {
   -webkit-animation: unhide var(--transition-time-icon) steps(1, end);
-          animation: unhide var(--transition-time-icon) steps(1, end);
+  animation: unhide var(--transition-time-icon) steps(1, end);
   display: block;
+}
+
+.row {
+    margin-top: 3rem;
 }
 
 @-webkit-keyframes unhide {
