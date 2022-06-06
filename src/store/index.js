@@ -12,7 +12,9 @@ export default createStore({
     state: {
         search: '',
         historySearch: [],
-        searchedData: null
+        searchedData: null,
+        allDataCount: 0,
+
     },
     getters: {
         getCurrentSearch: (state) => {
@@ -26,6 +28,10 @@ export default createStore({
         getSearchedData: (state) => {
             const searchedData = state.searchedData
             return searchedData
+        },
+        getAllDataCount: (state) => {
+            const allDataCount = state.allDataCount
+            return allDataCount
         }
     },
     mutations: {
@@ -37,6 +43,9 @@ export default createStore({
         },
         setSearchedData: function (state, searchedData) {
             state.searchedData = searchedData
+        },
+        setAllDataCount: function (state, allDataCount) {
+            state.allDataCount = allDataCount
         },
 
     },
@@ -51,6 +60,9 @@ export default createStore({
             commit
         }, data) => {
             commit("setSearchedData", data)
+        },
+        countData: ({commit},count) => {
+            commit("setAllDataCount", count)
         }
     },
     plugins: [createPersistedState({

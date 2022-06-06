@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" :class="{ empty: tableShow }">
     <div class="row">
       <div class="col-xs-12">
         <form action="" class="search">
@@ -37,10 +37,9 @@
         </form>
       </div>
     </div>
-    <div class="row">
+    <div class="row" id="resultTable" v-show="tableShow">
       <div class="col-xs-12">
-        <!-- <div id="example-table" ref="example-table"></div> -->
-        <slot/>
+        <slot />
       </div>
     </div>
   </div>
@@ -53,87 +52,22 @@ import SearchService from "@/services/index";
 export default {
   data() {
     return {
-      // tabulator: null, //variable to hold your table
-      // tableData: this.$store.getters.getSearchedData, //data for table to display
+      tableShow: false,
     };
   },
-  // watch: {
-  //   //update table if data changes
-  //   tableData: {
-  //     handler: function (newData) {
-  //       this.tabulator.replaceData(newData);
-  //     },
-  //     deep: true,
-  //   },
-  // },
   methods: {
     searchData() {
       SearchService.query(this.$refs.search.value, "10", "10").then((data) => {
-        
         this.$store.dispatch("search", this.$refs.search.value);
         this.$store.dispatch("data", data.hits.hits);
-        // this.tableData= this.$store.getters.getSearchedData
+        this.tableShow = data.hits.hits.length > 0 ? true : false;
+        
       });
     },
     responseData() {
       console.log(this.$store.getters.getCurrentSearch);
     },
   },
-  // mounted() {
-  //   this.tabulator = new Tabulator(this.$refs["example-table"], {
-  //     data: this.tableData,
-  //     reactiveData: true,
-  //     layout: "fitColumns",
-  //     columns: [
-  //       {
-  //         title: "Id",
-  //         field: "_id",
-  //         //   dataSorting: function (sorters) {
-  //         //     console.log(sorters);
-  //         //   },
-  //         //   dataSorted: function (sorters, rows) {
-  //         //     //sorters - array of the sorters currently applied
-  //         //     //rows - array of row components in their new order
-  //         //     console.log(sorters, rows);
-  //         //   },
-  //         //   cellClick: (e, cell) =>
-  //         //     this.handleCellSingleClick(e, cell, (e, cell) => {
-  //         //       console.log("Value: ", cell._cell.value);
-  //         //     }),
-  //         //   tableBuilt: function () {
-  //         //     console.log("test");
-  //         //   },
-  //         //   columnResized: function (column) {
-  //         //     console.log(column);
-  //         //     //column - column component of the resized column
-  //         //   },
-  //       },
-  //       {
-  //         title: "Index",
-  //         field: "_index",
-  //       },
-  //       {
-  //         title: "Score",
-  //         field: "_score",
-  //       },
-  //       {
-  //         title: "Source",
-  //         field: "_source",
-  //       },
-  //     ],
-  //   });
-  //   this.tabulator.on("rowClick", function (e, row) {
-  //     alert("Row " + row.getIndex() + " Clicked!!!!");
-  //   });
-  //   this.tabulator.on("dataSorted", function (sorters, rows) {
-  //     //sorters - array of the sorters currently applied
-  //     //rows - array of sortersrow components in their new order
-  //     console.log(sorters, rows);
-  //   });
-  //   this.tabulator.on("rowContext", function (e, row) {
-  //     alert("Row " + row.getIndex() + " Context Clicked!!!!");
-  //   });
-  // },
 };
 </script>
 <style >
@@ -157,6 +91,11 @@ export default {
   height: 100vh;
   justify-content: center;
   flex-direction: column;
+}
+
+.empty {
+    justify-content: flex-start;
+    padding-top: 3em;
 }
 
 .search {
@@ -265,7 +204,12 @@ export default {
 }
 
 .row {
-    margin-top: 3rem;
+  padding: 0 2rem;
+}
+
+#resultTable {
+  width: 100%;
+  margin-top: 3rem;
 }
 
 @-webkit-keyframes unhide {
