@@ -1,5 +1,5 @@
 <template>
-  <div id="example-table"  ref="example-table"></div>
+  <div id="example-table" ref="example-table"></div>
 </template>
 <script>
 import { TabulatorFull as Tabulator } from "tabulator-tables";
@@ -12,10 +12,14 @@ export default {
   data() {
     return {
       tabulator: null,
+      paginationSize: 10,
     };
   },
   computed: {
-    ...mapGetters({ tableDatas: "getSearchedData" }),
+    ...mapGetters({
+      tableDatas: "getSearchedData",
+      countData: "getAllDataCount",
+    }),
   },
   methods: {
     hideIcon: function () {
@@ -32,18 +36,54 @@ export default {
     },
   },
   mounted() {
-     
     this.tabulator = new Tabulator(this.$refs["example-table"], {
       data: this.tableDatas,
       reactiveData: true,
       layout: "fitColumns",
       height: "75vh",
       width: "100%",
-      pagination: "local",
-      paginationSize: 10,
+      pagination: "remote",
+      paginationSize: this.paginationSize,
+      paginationInitialPage: 20,
+      paginationButtonCount: 6,
       paginationSizeSelector: [3, 6, 8, 10],
       movableColumns: true,
-      paginationCounter: "rows",
+      paginationCounter: function (
+        pageSize,
+        currentRow,
+        currentPage,
+        totalRows,
+        totalPages
+      ) {
+        this.paginationSize = pageSize;
+        console.log(this.paginationSize);
+        console.log(
+          "Showing " +
+            pageSize +
+            " rows of " +
+            totalRows +
+            " total" +
+            " currentRow " +
+            currentPage +
+            " currentRow " +
+            currentRow +
+            " totalpages " +
+            totalPages
+        );
+        return (
+          "Showing " +
+          pageSize +
+          " rows of " +
+          totalRows +
+          " total" +
+          " currentRow " +
+          currentPage +
+          " currentRow " +
+          currentRow +
+          " totalpages " +
+          totalPages
+        );
+      },
       columns: [
         {
           formatter: "rowSelection",
@@ -124,8 +164,8 @@ div#holder {
   background: #898989;
 }
 
-.closeTable{
-display: none;
+.closeTable {
+  display: none;
 }
 
 .col-xs-12 > .tabulator {
@@ -146,6 +186,6 @@ i.icon-plus {
   color: aliceblue;
 }
 .open {
-    display: grid ;
+  display: grid;
 }
 </style>

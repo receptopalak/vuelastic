@@ -57,9 +57,10 @@ export default {
   },
   methods: {
     searchData() {
-      SearchService.query(this.$refs.search.value, "10", "10").then((data) => {
+      SearchService.query(this.$refs.search.value, "10", "0").then((data) => {
         this.$store.dispatch("search", this.$refs.search.value);
         this.$store.dispatch("data", data.hits.hits);
+        this.$store.dispatch("countData",data.hits.total.value);
         this.tableShow = data.hits.hits.length > 0 ? true : false;
         
       });

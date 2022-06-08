@@ -19,6 +19,7 @@
     "secure-ls": "^1.2.6",
     "tabulator-tables": "^5.2.6",
     "vue": "^3.2.13",
+    "vue-good-table-next": "^0.2.1",
     "vue-router": "4",
     "vuex": "^4.0.2",
     "vuex-persistedstate": "^4.1.0"

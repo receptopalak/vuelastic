@@ -15,7 +15,22 @@ const SearchService = {
         .catch((err)=>{
             throw err
         });
-    }
+    },
+    querySort: async function query(queryParam,size,from,column,type) {
+        return await appAxios
+         .get(`_search?pretty=true&q="*${queryParam}*"&size=${size}&from=${from}&sort=${column}:${type}`, {
+             data: JSON.stringify(queryParam),
+             auth: {
+                 username: 'elastic',
+                 password: '123456'
+               }
+         }).then((response) => {
+             return response.data
+         })
+         .catch((err)=>{
+             throw err
+         });
+     }
 }
 
 

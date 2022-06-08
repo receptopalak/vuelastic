@@ -2705,6 +2705,11 @@
   "resolved" "https://registry.npmmirror.com/csstype/-/csstype-2.6.20.tgz"
   "version" "2.6.20"
 
+"date-fns@^2.25.0":
+  "integrity" "sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw=="
+  "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-2.28.0.tgz"
+  "version" "2.28.0"
+
 "debug@^3.1.1":
   "integrity" "sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ=="
   "resolved" "https://registry.npmmirror.com/debug/-/debug-3.2.7.tgz"
@@ -4083,6 +4088,11 @@
   "integrity" "sha512-3j8wdDzYuWO3lM3Reg03MuQR957t287Rpcxp1njpEa8oDrikb+FwGdW3n+FELh/A6qib6yPit0j/pv9G/yeAqA=="
   "resolved" "https://registry.npmmirror.com/lodash.defaultsdeep/-/lodash.defaultsdeep-4.6.1.tgz"
   "version" "4.6.1"
+
+"lodash.isequal@^4.5.0":
+  "integrity" "sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ=="
+  "resolved" "https://registry.npmjs.org/lodash.isequal/-/lodash.isequal-4.5.0.tgz"
+  "version" "4.5.0"
 
 "lodash.kebabcase@^4.1.1":
   "integrity" "sha512-N8XRTIMMqqDgSy4VLKPnJ/+hpGZN+PHQiJnSenYqPaVV/NCqEogTnAdZLQiGKhxX+JCs8waWq2t1XHWKOmlY8g=="
@@ -5951,6 +5961,14 @@
     "esquery" "^1.4.0"
     "lodash" "^4.17.21"
     "semver" "^7.3.5"
+
+"vue-good-table-next@^0.2.1":
+  "integrity" "sha512-Zri8pQtUdb698FA+KSSOW4rxLthuJw8QUdWDdmArUPyxjVFH0wpXbK32r9RgPkHFMMPVUSsqchCqE2wE1tI0qg=="
+  "resolved" "https://registry.npmjs.org/vue-good-table-next/-/vue-good-table-next-0.2.1.tgz"
+  "version" "0.2.1"
+  dependencies:
+    "date-fns" "^2.25.0"
+    "lodash.isequal" "^4.5.0"
 
 "vue-hot-reload-api@^2.3.0":
   "integrity" "sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog=="
