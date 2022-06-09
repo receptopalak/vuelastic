@@ -60,9 +60,8 @@ export default {
       SearchService.query(this.$refs.search.value, "10", "0").then((data) => {
         this.$store.dispatch("search", this.$refs.search.value);
         this.$store.dispatch("data", data.hits.hits);
-        this.$store.dispatch("countData",data.hits.total.value);
+        this.$store.dispatch("countData", data.hits.total.value);
         this.tableShow = data.hits.hits.length > 0 ? true : false;
-        
       });
     },
     responseData() {
@@ -95,8 +94,8 @@ export default {
 }
 
 .empty {
-    justify-content: flex-start;
-    padding-top: 3em;
+  justify-content: flex-start;
+  padding-top: 3em;
 }
 
 .search {
@@ -233,5 +232,15 @@ export default {
     height: auto;
     opacity: 1;
   }
+}
+
+@media (max-width: 800px) {
+  .search{
+    --font-size: 1rem;
+  }
+  .empty {
+
+  height: auto;
+}
 }
 </style>

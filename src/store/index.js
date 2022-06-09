@@ -14,7 +14,7 @@ export default createStore({
         historySearch: [],
         searchedData: null,
         allDataCount: 0,
-
+        selectedRows:null
     },
     getters: {
         getCurrentSearch: (state) => {
@@ -32,6 +32,10 @@ export default createStore({
         getAllDataCount: (state) => {
             const allDataCount = state.allDataCount
             return allDataCount
+        },
+        getSelectedRows: (state) => {
+            const selectedRows = state.selectedRows
+            return selectedRows
         }
     },
     mutations: {
@@ -46,6 +50,9 @@ export default createStore({
         },
         setAllDataCount: function (state, allDataCount) {
             state.allDataCount = allDataCount
+        },
+        setSelectedRows: function (state, selectedRows) {
+            state.selectedRows = selectedRows
         },
 
     },
@@ -63,6 +70,9 @@ export default createStore({
         },
         countData: ({commit},count) => {
             commit("setAllDataCount", count)
+        },
+        selectRows({commit},selectedData){
+            commit("setSelectedRows",selectedData)
         }
     },
     plugins: [createPersistedState({
